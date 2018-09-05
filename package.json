@@ -1,26 +1,20 @@
 {
-  "name": "targit",
-  "version": "0.0.0",
-  "description": "A module for downloading Git repositories from various sources.",
-  "scripts": {
-    "lint": "eslint .",
-    "test": "jest"
-  },
-  "keywords": [
-    "bitbucket",
-    "download",
-    "git",
-    "github",
-    "gitlab"
-  ],
-  "main": "./src/index.js",
-  "author": "Ewan Harris <ewanharris93@gmail.com>",
-  "license": "MIT",
-  "devDependencies": {
-    "eslint": "^4.19.1",
-    "eslint-config-axway": "^2.0.14",
-    "eslint-plugin-jest": "^21.17.0",
-    "jest": "^23.1.0"
-  },
-  "dependencies": {}
+	"name": "targit-monorepo",
+	"private": true,
+	"scripts": {
+		"lint": "eslint .",
+		"test": "jest"
+	},
+	"devDependencies": {
+		"eslint": "^5.4.0",
+		"eslint-config-axway": "^4.0.0",
+		"eslint-plugin-jest": "^21.21.0",
+		"jest": "^23.5.0",
+		"lerna": "^3.1.1"
+	},
+	"workspaces": {
+		"packages": [
+			"packages/*"
+		]
+	}
 }

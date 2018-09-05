@@ -1,0 +1,28 @@
+{
+  "name": "targit",
+  "version": "0.1.0",
+  "description": "A module for downloading Git repositories from various sources.",
+  "keywords": [
+    "bitbucket",
+    "download",
+    "git",
+    "github",
+    "gitlab"
+  ],
+  "main": "./src/index.js",
+  "author": "Ewan Harris <ewanharris93@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@axway/amplify-request": "^0.1.2",
+    "decompress": "^4.2.0",
+    "got": "^9.0.0",
+    "mkdirp": "^0.5.1"
+  },
+  "devDependencies": {
+    "rimraf": "^2.6.2",
+    "tmp": "^0.0.33"
+  },
+  "files": [
+    "src"
+  ]
+}

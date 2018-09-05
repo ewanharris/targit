@@ -1,0 +1,17 @@
+{
+  "name": "targit-parser",
+  "version": "0.1.0",
+  "description": "A parsing various types of git URIs",
+  "keywords": [
+    "bitbucket",
+    "git",
+    "github",
+    "gitlab"
+  ],
+  "main": "index.js",
+  "author": "Ewan Harris <ewanharris93@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ]
+}

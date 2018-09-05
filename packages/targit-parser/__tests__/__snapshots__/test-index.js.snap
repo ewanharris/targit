@@ -1,0 +1,379 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`parseURI git@host:user/repo: git@bitbucket.org:ewanharris/targit.git 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/master.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI git@host:user/repo: git@github.com:ewanharris/targit.git 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/master.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI git@host:user/repo: git@gitlab.com:ewanharris/targit.git 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=master",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=master",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI host:user/repo: bitbucket:ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/master.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI host:user/repo: bitbucket:ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/abranch.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI host:user/repo: github:ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/master.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI host:user/repo: github:ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/abranch.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI host:user/repo: gitlab:ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=master",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=master",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI host:user/repo: gitlab:ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=abranch",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=abranch",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://bitbucket.org/ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/master.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://bitbucket.org/ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/abranch.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://github.com/ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/master.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://github.com/ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/abranch.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://gitlab.com/ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=master",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=master",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://gitlab.com/ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=abranch",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=abranch",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://www.bitbucket.org/ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/master.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://www.bitbucket.org/ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/abranch.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://www.github.com/ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/master.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://www.github.com/ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/abranch.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://www.gitlab.com/ewanharris/targit 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=master",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=master",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI https url: https://www.gitlab.com/ewanharris/targit#abranch 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=abranch",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=abranch",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI user/repo: {"uri":"ewanharris/targit","host":"bitbucket"} 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/master.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI user/repo: {"uri":"ewanharris/targit","host":"gitlab"} 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=master",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=master",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI user/repo: {"uri":"ewanharris/targit"} 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/master.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/master.zip",
+  },
+  "ref": "master",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI user/repo: {"uri":"ewanharris/targit#abranch","host":"bitbucket"} 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://bitbucket.org/ewanharris/targit/get/abranch.tar.gz",
+    "zip": "https://bitbucket.org/ewanharris/targit/get/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "bitbucket",
+  "url": "https://bitbucket.org/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI user/repo: {"uri":"ewanharris/targit#abranch","host":"gitlab"} 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://gitlab.com/ewanharris/targit/repository/archive.tar.gz?ref=abranch",
+    "zip": "https://gitlab.com/ewanharris/targit/repository/archive.zip?ref=abranch",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "gitlab",
+  "url": "https://gitlab.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
+
+exports[`parseURI user/repo: {"uri":"ewanharris/targit#abranch"} 1`] = `
+Object {
+  "archives": Object {
+    "tgz": "https://github.com/ewanharris/targit/archive/abranch.tar.gz",
+    "zip": "https://github.com/ewanharris/targit/archive/abranch.zip",
+  },
+  "ref": "abranch",
+  "repo": "targit",
+  "site": "github",
+  "url": "https://github.com/ewanharris/targit",
+  "user": "ewanharris",
+}
+`;
