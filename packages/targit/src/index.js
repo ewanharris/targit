@@ -18,8 +18,14 @@ const supportedHosts = [
 
 /**
  *
- * @param {String} url - The
- * @param {*} param1
+ * @param {String} uri - The uri for the git repo.
+ * @param {Object} [options] - Various options.
+ * @param {String} [options.archiveType='tar.gz'] - Archive format to download, zip or tar.gz.
+ * @param {String} [options.cacheDir='~/.targit'] - Top level directory to cache downloads in.
+ * @param {String} [options.defaultHost='github'] - Default host to be used when parsing the uri, Bitbucket, GitHub, or GitLab.
+ * @param {Boolean} [options.force=false] - If true, always ignore local cache and download from hosting service.
+ * @param {Function} [options.onData] - Function to invoke when data is recieved during download, useful for showing progress bars. Called with the chunk and content-length header.
+ * @returns {Promise} Resolves with the location of the archive once downloaded
  */
 function download(
 	uri,
@@ -73,6 +79,10 @@ function download(
 			.on('response', (response) => {
 				if (response.statusCode !== 200) {
 					return reject(new Error(`Failed to download archive: ${response.statusCode}`));
+				}
+				const length = parseInt(response.headers['content-length']);
+				if (onData) {
+					response.on('data', (chunk) => onData(length, chunk));
 				}
 				response.once('end', () => resolve(archiveLocation));
 			})
