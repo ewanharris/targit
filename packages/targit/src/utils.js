@@ -45,11 +45,12 @@ function getHash(info, refs) {
 }
 
 async function getRemoteRefs({ site, user, repo }) {
-	const got = require('got');
+	const { default: request } = require('@axway/amplify-request');
+
 	const refsData = {};
 	switch (site) {
 		case 'bitbucket':
-			let { body: bbBody } = await got(`https://api.bitbucket.org/2.0/repositories/${user}/${repo}/refs`, { json: true });
+			let { body: bbBody } = await request(`https://api.bitbucket.org/2.0/repositories/${user}/${repo}/refs`, { json: true });
 			for (const bbRef of bbBody.values) {
 				refsData[bbRef.name] = bbRef.target.hash;
 			}
@@ -62,7 +63,7 @@ async function getRemoteRefs({ site, user, repo }) {
 			if (process.env.GH_TOKEN) {
 				headers.Authorization = `token ${process.env.GH_TOKEN}`;
 			}
-			const { body: ghBody } = await got(`https://api.github.com/repos/${user}/${repo}/git/refs`, {
+			const { body: ghBody } = await request(`https://api.github.com/repos/${user}/${repo}/git/refs`, {
 				headers,
 				json: true
 			});

@@ -1,6 +1,6 @@
 {
   "name": "targit",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A module for downloading Git repositories from various sources.",
   "keywords": [
     "bitbucket",
@@ -15,8 +15,8 @@
   "dependencies": {
     "@axway/amplify-request": "^0.1.2",
     "decompress": "^4.2.0",
-    "got": "^9.0.0",
-    "mkdirp": "^0.5.1"
+    "mkdirp": "^0.5.1",
+    "targit-parser": "^0.1.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.2",

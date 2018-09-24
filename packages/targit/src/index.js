@@ -1,4 +1,3 @@
-const got = require('got');
 const decompress = require('decompress');
 const parseURI = require('targit-parser');
 const mkdirp = require('mkdirp');
