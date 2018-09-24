@@ -127,7 +127,7 @@ async function extract({ from, to = process.cwd() } = {}) {
 async function downloadAndExtract (uri, to, opts = {}) {
 	const  repoInfo = parseURI(uri, opts.defaultHost);
 	try {
-		await request(repoInfo.url);
+		await request({ url: repoInfo.url });
 	} catch (error) {
 		// ENOTFOUND is passed through
 		if (error.code === 'HTTPError') {
