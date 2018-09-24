@@ -60,16 +60,18 @@ async function getRemoteRefs({ site, user, repo }) {
 			break;
 		case 'github':
 			const headers = {
-				Accept: 'application/vnd.github.v3+json'
+				Accept: 'application/vnd.github.v3+json',
+				'User-Agent': 'targit by ewanharris'
 			};
 
 			if (process.env.GH_TOKEN) {
 				headers.Authorization = `token ${process.env.GH_TOKEN}`;
 			}
 			const { body: ghBody } = await request({
-				url:`https://api.github.com/repos/${user}/${repo}/git/refs`,
+				url: `https://api.github.com/repos/${user}/${repo}/git/refs`,
 				headers,
-				validateJSON: true
+				validateJSON: true,
+
 			});
 			// TODO handle rate limit
 			for (const ghRef of ghBody) {
