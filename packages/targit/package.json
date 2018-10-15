@@ -1,6 +1,6 @@
 {
   "name": "targit",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A module for downloading Git repositories from various sources.",
   "keywords": [
     "bitbucket",

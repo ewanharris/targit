@@ -3,7 +3,6 @@ const path = require('path');
 const tmp = require('tmp');
 const rimraf = require('rimraf');
 const { download, extract } = require('../src');
-process.env.GH_TOKEN = '20d90e0ea38ef341de3413ef8311b049d074f4b7';
 
 describe('download', () => {
 
@@ -11,43 +10,38 @@ describe('download', () => {
 
 	// TODO: replace these with proper test repos
 
-	test('should download a repo master tar.gz', () => {
+	test('should download a repo master tar.gz', async () => {
 		const tmpDir = tmp.dirSync({
 			mode: '755',
 			prefix: 'targit-download-test'
 		});
-		return download('ewanharris/targit', { cacheDir: tmpDir.name })
-			.then(dir => {
-				expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit', '1bd8254d87471532488385d27f61d6f3c4db7dee.tar.gz'));
-				expect(fs.existsSync(dir)).toBe(true);
-				rimraf.sync(tmpDir.name);
-			});
+		const dir = await download('ewanharris/targit-test-repo', { cacheDir: tmpDir.name });
+		console.log(dir);
+		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.tar.gz'));
+		expect(fs.existsSync(dir)).toBe(true);
+		rimraf.sync(tmpDir.name);
 	});
 
-	test('should download a repos master zip', () => {
+	test('should download a repos master zip', async () => {
 		const tmpDir = tmp.dirSync({
 			mode: '755',
 			prefix: 'targit-download-test'
 		});
-		download('ewanharris/targit', { cacheDir: tmpDir.name, archiveType: 'zip' })
-			.then(dir => {
-				expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit', 'master.zip'));
-				expect(fs.existsSync(dir)).toBe(true);
-				rimraf.sync(tmpDir.name);
-			});
+		const dir = await download('ewanharris/targit-test-repo', { cacheDir: tmpDir.name, archiveType: 'zip' });
+		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.zip'));
+		expect(fs.existsSync(dir)).toBe(true);
+		rimraf.sync(tmpDir.name);
 	});
 
-	test('should download a repos tag zip', () => {
+	test('should download a repos tag zip', async () => {
 		const tmpDir = tmp.dirSync({
 			mode: '755',
 			prefix: 'targit-download-test'
 		});
-		download('appcelerator/eslint-config-axway#v3.0.0', { cacheDir: tmpDir.name })
-			.then(dir => {
-				expect(dir).toBe(path.join(tmpDir.name, 'github', 'appcelerator', 'eslint-config-axway', 'v3.0.0.tar.gz'));
-				expect(fs.existsSync(dir)).toBe(true);
-				rimraf.sync(tmpDir.name);
-			});
+		const dir = await download('ewanharris/targit-test-repo#v1.0.0', { cacheDir: tmpDir.name });
+		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.tar.gz'));
+		expect(fs.existsSync(dir)).toBe(true);
+		rimraf.sync(tmpDir.name);
 	});
 });
 

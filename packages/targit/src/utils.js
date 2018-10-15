@@ -18,7 +18,6 @@ async function getRefs(info, archiveDir) {
 		refs = await getRemoteRefs(info);
 	} catch (e) {
 		try {
-			console.log(e);
 			refs = JSON.parse(readFileSync(join(archiveDir, 'refs.json')));
 		} catch (err) {
 			refs = {};
@@ -64,18 +63,19 @@ async function getRemoteRefs({ site, user, repo }) {
 				'User-Agent': 'targit by ewanharris'
 			};
 
+			// This allows users to work around the rate limit
 			if (process.env.GH_TOKEN) {
 				headers.Authorization = `token ${process.env.GH_TOKEN}`;
 			}
+
 			const { body: ghBody } = await request({
 				url: `https://api.github.com/repos/${user}/${repo}/git/refs`,
 				headers,
 				validateJSON: true,
-
 			});
-			// TODO handle rate limit
-			for (const ghRef of ghBody) {
-				refsData[ghRef.ref.replace('refs/heads/', '')] = ghRef.object.sha;
+
+			for (const { object, ref } of ghBody) {
+				refsData[ref.replace(/refs\/\w+\//, '')] = object.sha;
 			}
 			break;
 		case 'gitlab':
