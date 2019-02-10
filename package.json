@@ -8,8 +8,8 @@
 	"devDependencies": {
 		"eslint": "^5.4.0",
 		"eslint-config-axway": "^4.0.0",
-		"eslint-plugin-jest": "^21.21.0",
-		"jest": "^23.5.0",
+		"eslint-plugin-jest": "^22.2.2",
+		"jest": "^24.1.0",
 		"lerna": "^3.1.1"
 	},
 	"workspaces": {
