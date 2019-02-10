@@ -16,7 +16,6 @@ describe('download', () => {
 			prefix: 'targit-download-test'
 		});
 		const dir = await download('ewanharris/targit-test-repo', { cacheDir: tmpDir.name });
-		console.log(dir);
 		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.tar.gz'));
 		expect(fs.existsSync(dir)).toBe(true);
 		rimraf.sync(tmpDir.name);
