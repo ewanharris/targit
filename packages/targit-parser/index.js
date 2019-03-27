@@ -1,3 +1,11 @@
+/**
+ * Parse a URI to return various pieces of information
+ *
+ * @param {String} uri - The URI to be parsed.
+ * @param {String} [defaultHost='github'] - The host to default to when parsing a URI.
+ *
+ * @returns {Object}
+ */
 module.exports = function parseURI(uri, defaultHost = 'github') {
 	const match = /^(?:https:\/\/([^/]+)\/|git@([^/]+):|([^/]+):)?([^/\s]+)\/([^/\s#]+)(?:#(.+))?/.exec(uri);
 
@@ -21,15 +29,16 @@ module.exports = function parseURI(uri, defaultHost = 'github') {
 			archives.tgz = `${url}/get/${ref}.tar.gz`;
 			archives.zip = `${url}/get/${ref}.zip`;
 			break;
-		case 'github':
-			url = `https://${site}.com/${user}/${repo}`;
-			archives.tgz = `${url}/archive/${ref}.tar.gz`;
-			archives.zip = `${url}/archive/${ref}.zip`;
-			break;
 		case 'gitlab':
 			url = `https://${site}.com/${user}/${repo}`;
 			archives.tgz = `${url}/repository/archive.tar.gz?ref=${ref}`;
 			archives.zip = `${url}/repository/archive.zip?ref=${ref}`;
+			break;
+		case 'github':
+		default:
+			url = `https://${site}.com/${user}/${repo}`;
+			archives.tgz = `${url}/archive/${ref}.tar.gz`;
+			archives.zip = `${url}/archive/${ref}.zip`;
 			break;
 	}
 
