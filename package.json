@@ -3,7 +3,8 @@
 	"private": true,
 	"scripts": {
 		"lint": "eslint .",
-		"test": "jest"
+		"test": "jest",
+		"test-watch": "jest --watch"
 	},
 	"devDependencies": {
 		"eslint": "^5.4.0",

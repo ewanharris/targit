@@ -13,14 +13,14 @@
   "author": "Ewan Harris <ewanharris93@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@axway/amplify-request": "^0.1.2",
+    "@axway/amplify-request": "^0.4.0",
     "decompress": "^4.2.0",
-    "mkdirp": "^0.5.1",
+    "fs-extra": "^7.0.1",
     "targit-parser": "^0.1.0"
   },
   "devDependencies": {
     "rimraf": "^2.6.2",
-    "tmp": "^0.0.33"
+    "tmp": "^0.1.0"
   },
   "files": [
     "src"

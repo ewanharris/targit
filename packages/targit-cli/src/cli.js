@@ -49,4 +49,8 @@ cli.exec()
 					break;
 			}
 		}
+		return;
+	})
+	.catch(error => {
+		console.error(error);
 	});
