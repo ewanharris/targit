@@ -9,6 +9,9 @@ os:
   - osx
   - windows
 
+env:
+  - YARN_GPG=no
+
 before_install:
   - npm install yarn -g
 
