@@ -1,8 +1,19 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const tmp = require('tmp');
-const rimraf = require('rimraf');
 const { download, extract } = require('../src');
+
+let tmpDir;
+beforeEach(() => {
+	tmpDir = tmp.dirSync({
+		mode: '755',
+		prefix: 'targit-download-test'
+	});
+});
+
+afterEach(async () => {
+	await fs.remove(tmpDir.name);
+});
 
 describe('download', () => {
 
@@ -25,36 +36,21 @@ describe('download', () => {
 	});
 
 	test('should download a repo master tar.gz', async () => {
-		const tmpDir = tmp.dirSync({
-			mode: '755',
-			prefix: 'targit-download-test'
-		});
 		const dir = await download('ewanharris/targit-test-repo', { cacheDir: tmpDir.name });
 		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.tar.gz'));
 		expect(fs.existsSync(dir)).toBe(true);
-		rimraf.sync(tmpDir.name);
 	});
 
 	test('should download a repos master zip', async () => {
-		const tmpDir = tmp.dirSync({
-			mode: '755',
-			prefix: 'targit-download-test'
-		});
 		const dir = await download('ewanharris/targit-test-repo', { cacheDir: tmpDir.name, archiveType: 'zip' });
 		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.zip'));
 		expect(fs.existsSync(dir)).toBe(true);
-		rimraf.sync(tmpDir.name);
 	});
 
 	test('should download a repos tag zip', async () => {
-		const tmpDir = tmp.dirSync({
-			mode: '755',
-			prefix: 'targit-download-test'
-		});
 		const dir = await download('ewanharris/targit-test-repo#v1.0.0', { cacheDir: tmpDir.name });
 		expect(dir).toBe(path.join(tmpDir.name, 'github', 'ewanharris', 'targit-test-repo', 'e636f1a0a8788c79300024b2c029696a75af33d7.tar.gz'));
 		expect(fs.existsSync(dir)).toBe(true);
-		rimraf.sync(tmpDir.name);
 	});
 });
 
@@ -85,13 +81,8 @@ describe('extract', () => {
 	});
 
 	test('should extract just fine', async () => {
-		const tmpDir = tmp.dirSync({
-			mode: '755',
-			prefix: 'targit-download-test'
-		});
 		const folder = await extract(path.join(__dirname, 'fixtures', 'test-fixture.tgz'), tmpDir.name);
 		expect(folder).toBe(tmpDir.name);
 		expect(fs.existsSync(tmpDir.name)).toBe(true);
-		rimraf.sync(tmpDir.name);
 	});
 });

@@ -19,7 +19,6 @@
     "targit-parser": "^0.1.0"
   },
   "devDependencies": {
-    "rimraf": "^2.6.2",
     "tmp": "^0.1.0"
   },
   "files": [
