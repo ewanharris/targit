@@ -25,64 +25,68 @@ const supportedHosts = [
  * @param {Function} [options.onData] - Function to invoke when data is recieved during download, useful for showing progress bars. Called with the chunk and content-length header.
  * @returns {Promise} Resolves with the location of the archive once downloaded
  */
-function download(
+async function download(
 	uri,
 	{ archiveType = 'tar.gz', cacheDir = defaultCache, defaultHost = 'github', force = false, onData } = {}
 ) {
-	return new Promise(async (resolve, reject) => {
-		if (!uri || typeof uri !== 'string') {
-			return reject(new TypeError('Expected uri to be a string'));
-		}
+	if (!uri || typeof uri !== 'string') {
+		throw new TypeError('Expected uri to be a string');
+	}
 
-		if (!supportedHosts.includes(defaultHost)) {
-			return reject(new TarGitError(`${defaultHost} is an unsupported host. Valid hosts are ${supportedHosts.join(', ')}`, {
-				code: 'E_UNSUPPORTED_HOST'
-			}));
-		}
+	if (!supportedHosts.includes(defaultHost)) {
+		throw new TarGitError(`${defaultHost} is an unsupported host. Valid hosts are ${supportedHosts.join(', ')}`, {
+			code: 'E_UNSUPPORTED_HOST'
+		});
+	}
 
-		if (![ 'tar.gz', 'zip' ].includes(archiveType)) {
-			return reject(new TarGitError(`${archiveType} is an unsupported archive type. Valid types are tar.gz and zip`, {
-				code: 'E_UNSUPPORTED_ARCHIVE_TYPE'
-			}));
-		}
+	if (![ 'tar.gz', 'zip' ].includes(archiveType)) {
+		throw new TarGitError(`${archiveType} is an unsupported archive type. Valid types are tar.gz and zip`, {
+			code: 'E_UNSUPPORTED_ARCHIVE_TYPE'
+		});
+	}
 
-		const repoInfo = parseURI(uri, defaultHost);
-		const archiveDir = getArchiveDir(repoInfo, cacheDir);
-		await ensureDir(archiveDir);
-		const type = archiveType === 'zip' ? 'zip' : 'tgz';
-		// Lookup the refs remotely via api, falling back to the on disk cache
-		// if we fail
-		const refs = await getRefs(repoInfo, archiveDir);
-		const hash = getHash(repoInfo, refs);
+	const repoInfo = parseURI(uri, defaultHost);
+	const archiveDir = getArchiveDir(repoInfo, cacheDir);
+	await ensureDir(archiveDir);
+	const type = archiveType === 'zip' ? 'zip' : 'tgz';
 
-		if (!hash) {
-			return reject(new TarGitError('Could not find commit sha', {
-				code: 'E_NO_REF'
-			}));
-		}
+	// Lookup the refs remotely via api, falling back to the on disk cache
+	// if we fail
+	const refs = await getRefs(repoInfo, archiveDir);
+	const hash = getHash(repoInfo, refs);
 
-		const archiveLocation = join(archiveDir, `${hash}.${archiveType}`);
-		const refLocation = join(dirname(archiveLocation), 'refs.json');
-		// Write out object of refs so we can handle somethings offline
-		await writeJSON(refLocation, refs);
+	if (!hash) {
+		throw new TarGitError('Could not find commit sha', {
+			code: 'E_NO_REF'
+		});
+	}
 
-		// If it already exists just resolve with the location
-		if (!force && await exists(archiveLocation)) {
-			return resolve(archiveLocation);
-		}
-		// Otherwise download and resolve once done
-		const req = requestFile({ url: repoInfo.archives[type] });
+	// Write out object of refs so we can handle somethings offline
+	const archiveLocation = join(archiveDir, `${hash}.${archiveType}`);
+	const refLocation = join(dirname(archiveLocation), 'refs.json');
+	await writeJSON(refLocation, refs);
 
+	// If it already exists just resolve with the location
+	if (!force && await exists(archiveLocation)) {
+		return archiveLocation;
+	}
+
+	// Otherwise download and resolve once done
+	const req = requestFile({ url: repoInfo.archives[type] });
+
+	return new Promise((resolve, reject) => {
 		req
 			.on('response', (response) => {
 				if (response.statusCode !== 200) {
-					return reject(new Error(`Failed to download archive: ${response.statusCode}`));
+					throw new Error(`Failed to download archive: ${response.statusCode}`);
 				}
 				const length = parseInt(response.headers['content-length']);
 				if (onData) {
 					response.on('data', (chunk) => onData(length, chunk));
 				}
-				response.once('end', () => resolve(archiveLocation));
+				response.once('end', () =>  {
+					resolve(archiveLocation);
+				});
 			})
 			.once('error', reject)
 			.pipe(createWriteStream(archiveLocation));
@@ -91,8 +95,8 @@ function download(
 
 /**
  *
- * @param {Object} options
- * @param
+ * @param {String} from - Item to extract.
+ * @param {String} to - Location to extract to.
  */
 async function extract (from, to) {
 
@@ -121,12 +125,9 @@ async function extract (from, to) {
 	}
 
 	await ensureDir(to);
-	try {
-		await decompress(from, to, { strip: 1 });
-		return to;
-	} catch (e) {
-		throw e;
-	}
+
+	await decompress(from, to, { strip: 1 });
+	return to;
 }
 
 async function downloadAndExtract (uri, to, opts = {}) {

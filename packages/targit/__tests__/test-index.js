@@ -79,7 +79,7 @@ describe('extract', () => {
 	});
 
 	test('should error if to is not empty', async () => {
-		await expect(extract(path.join(__dirname, 'fixtures', 'test-fixture.tgz'), path.join(__dirname) ))
+		await expect(extract(path.join(__dirname, 'fixtures', 'test-fixture.tgz'), path.join(__dirname)))
 			.rejects
 			.toThrow(`Extract location ${path.join(__dirname)} is not empty`);
 	});

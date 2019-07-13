@@ -13,7 +13,7 @@
 	"author": "Ewan <ewanharris93@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"cli-kit": "^0.7.4",
+		"cli-kit": "0.11.2",
 		"targit": "^0.1.4",
 		"v8-compile-cache": "^2.0.2"
 	}
