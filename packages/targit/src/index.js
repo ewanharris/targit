@@ -6,6 +6,10 @@ const { getArchiveDir, getHash, getRefs, TarGitError } = require('./utils');
 const { homedir } = require('os');
 const { default: request, requestFile } = require('@axway/amplify-request');
 
+/**
+ * The default cache location for targit.
+ * @type {string}
+ */
 const defaultCache = join(homedir(), '.targit');
 
 const supportedHosts = [
@@ -15,15 +19,19 @@ const supportedHosts = [
 ];
 
 /**
+ * Options that can be used to configure targit.
+ * @typedef {Object} TarGitOptions
+ * @property {string} [archiveType='tar.gz'] - Archive format to download, zip or tar.gz.
+ * @property {string} [cacheDir='~/.targit'] - Top level directory to cache downloads in.
+ * @property {string} [defaultHost='github'] - Default host to be used when parsing the uri, bitbucket, github, or gitlab.
+ * @property {Boolean} [force=false] - If true, always ignore local cache and download from hosting service.
+ * @property {Function} [onData] - Function to invoke when data is recieved during download, useful for showing progress bars. Called with the chunk and content-length header.
+ */
+
+/**
  *
- * @param {String} uri - The uri for the git repo.
- * @param {Object} [options] - Various options.
- * @param {String} [options.archiveType='tar.gz'] - Archive format to download, zip or tar.gz.
- * @param {String} [options.cacheDir='~/.targit'] - Top level directory to cache downloads in.
- * @param {String} [options.defaultHost='github'] - Default host to be used when parsing the uri, Bitbucket, GitHub, or GitLab.
- * @param {Boolean} [options.force=false] - If true, always ignore local cache and download from hosting service.
- * @param {Function} [options.onData] - Function to invoke when data is recieved during download, useful for showing progress bars. Called with the chunk and content-length header.
- * @returns {Promise} Resolves with the location of the archive once downloaded
+ * @param {string} uri - The uri for the git repo.
+ * @param {TarGitOptions} [options] - Various options to configure targit.
  */
 async function download(
 	uri,
@@ -95,8 +103,8 @@ async function download(
 
 /**
  *
- * @param {String} from - Item to extract.
- * @param {String} to - Location to extract to.
+ * @param {string} from - Item to extract.
+ * @param {string} to - Location to extract to.
  */
 async function extract (from, to) {
 
@@ -130,8 +138,15 @@ async function extract (from, to) {
 	return to;
 }
 
-async function downloadAndExtract (uri, to, opts = {}) {
-	const  repoInfo = parseURI(uri, opts.defaultHost);
+/**
+ *
+ * @param {string} uri - URI of the git repo to download.
+ * @param {string} to - Location to extract the git repo to.
+ * @param {TarGitOptions} [options] - Various options to configure targit.
+ * @returns {string} Location that the repo was extracted to.
+ */
+async function downloadAndExtract (uri, to, options = {}) {
+	const  repoInfo = parseURI(uri, options.defaultHost);
 	try {
 		await request({ url: repoInfo.url });
 	} catch (error) {
@@ -144,8 +159,8 @@ async function downloadAndExtract (uri, to, opts = {}) {
 			});
 		}
 	}
-	const downloadLocation = await download(uri, opts);
-	return await extract(downloadLocation, to);
+	const downloadLocation = await download(uri, options);
+	return extract(downloadLocation, to);
 }
 
 module.exports = {
