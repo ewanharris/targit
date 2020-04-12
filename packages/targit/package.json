@@ -15,7 +15,7 @@
   "dependencies": {
     "@axway/amplify-request": "^1.1.1",
     "decompress": "^4.2.0",
-    "fs-extra": "^8.1.0",
+    "fs-extra": "^9.0.0",
     "targit-parser": "^0.1.0"
   },
   "devDependencies": {

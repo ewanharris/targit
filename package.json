@@ -9,8 +9,8 @@
 	"devDependencies": {
 		"eslint": "^6.0.1",
 		"eslint-config-axway": "^4.0.0",
-		"eslint-plugin-jest": "^22.2.2",
-		"jest": "^24.1.0",
+		"eslint-plugin-jest": "^23.8.2",
+		"jest": "^25.3.0",
 		"lerna": "^3.1.1"
 	},
 	"workspaces": {
