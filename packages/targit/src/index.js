@@ -60,8 +60,17 @@ async function download(
 
 	// Lookup the refs remotely via api, falling back to the on disk cache
 	// if we fail
-	const refs = await getRefs(repoInfo, archiveDir);
-	const hash = getHash(repoInfo, refs);
+	let refs = await getRefs(repoInfo, archiveDir);
+	let hash = getHash(repoInfo, refs);
+
+	// If we can't find a hash and the ref is 'master', try and look up a ref of 'main' instead
+	// this is due to a number of projects renaming their master branch to main and GitHub also
+	// changing the default
+	if (!hash && repoInfo.ref === 'master') {
+		Object.assign(repoInfo, parseURI(`${uri}#main`, defaultHost));
+		refs = await getRefs(repoInfo, archiveDir);
+		hash = getHash(repoInfo, refs);
+	}
 
 	if (!hash) {
 		throw new TarGitError('Could not find commit sha', {

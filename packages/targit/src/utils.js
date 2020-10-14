@@ -11,14 +11,14 @@ class TarGitError extends Error {
 }
 
 async function getRefs(info, archiveDir) {
-	const { readFileSync } = require('fs');
+	const { readJSON } = require('fs-extra');
 	const { join } = require('path');
 	let refs;
 	try {
 		refs = await getRemoteRefs(info);
 	} catch (e) {
 		try {
-			refs = JSON.parse(readFileSync(join(archiveDir, 'refs.json')));
+			refs = await readJSON(join(archiveDir, 'refs.json'));
 		} catch (err) {
 			refs = {};
 		}
