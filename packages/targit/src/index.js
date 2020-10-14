@@ -1,10 +1,13 @@
 const decompress = require('decompress');
 const parseURI = require('targit-parser');
-const { createWriteStream, ensureDir, exists, writeJSON, readdir } = require('fs-extra');
+const { createWriteStream, ensureDir, exists, writeJSON, readdir, remove } = require('fs-extra');
 const { dirname, join } = require('path');
 const { getArchiveDir, getHash, getRefs, TarGitError } = require('./utils');
 const { homedir } = require('os');
-const { default: request, requestFile } = require('@axway/amplify-request');
+const { init } = require('@axway/amplify-request');
+const stream = require('stream');
+const { promisify } = require('util');
+const pipeline = promisify(stream.pipeline);
 
 /**
  * The default cache location for targit.
@@ -88,26 +91,23 @@ async function download(
 		return archiveLocation;
 	}
 
-	// Otherwise download and resolve once done
-	const req = requestFile({ url: repoInfo.archives[type] });
+	const got = init();
+	const writeStream = createWriteStream(archiveLocation);
 
-	return new Promise((resolve, reject) => {
-		req
-			.on('response', (response) => {
-				if (response.statusCode !== 200) {
-					throw new Error(`Failed to download archive: ${response.statusCode}`);
-				}
-				const length = parseInt(response.headers['content-length']);
-				if (onData) {
-					response.on('data', (chunk) => onData(length, chunk));
-				}
-				response.once('end', () =>  {
-					resolve(archiveLocation);
-				});
-			})
-			.once('error', reject)
-			.pipe(createWriteStream(archiveLocation));
-	});
+	const downloadStream = got.stream(repoInfo.archives[type])
+		.on('error', async (error) => {
+			await remove(archiveLocation);
+			throw error;
+		});
+
+	if (onData) {
+		downloadStream
+			.on('downloadProgress', ({ percent, total }) => onData(total, percent));
+	}
+
+	await pipeline(downloadStream, writeStream);
+
+	return archiveLocation;
 }
 
 /**

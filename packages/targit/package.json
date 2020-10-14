@@ -13,7 +13,7 @@
   "author": "Ewan Harris <ewanharris93@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "@axway/amplify-request": "^1.1.1",
+    "@axway/amplify-request": "^2.0.0",
     "decompress": "^4.2.0",
     "fs-extra": "^9.0.0",
     "targit-parser": "^0.1.0"

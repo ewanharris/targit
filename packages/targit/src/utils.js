@@ -44,16 +44,13 @@ function getHash(info, refs) {
 }
 
 async function getRemoteRefs({ site, user, repo }) {
-	const { default: request } = require('@axway/amplify-request');
-
+	const { init } = require('@axway/amplify-request');
+	const got = init();
 	const refsData = {};
 	switch (site) {
 		case 'bitbucket':
-			let { body: bbBody } = await request({
-				url: `https://api.bitbucket.org/2.0/repositories/${user}/${repo}/refs`,
-				validateJSON: true
-			});
-			for (const bbRef of bbBody.values) {
+			let { body: bbBody } = await got(`https://api.bitbucket.org/2.0/repositories/${user}/${repo}/refs`);
+			for (const bbRef of JSON.parse(bbBody.values)) {
 				refsData[bbRef.name] = bbRef.target.hash;
 			}
 			break;
@@ -68,15 +65,14 @@ async function getRemoteRefs({ site, user, repo }) {
 				headers.Authorization = `token ${process.env.GH_TOKEN}`;
 			}
 
-			const { body: ghBody } = await request({
-				url: `https://api.github.com/repos/${user}/${repo}/git/refs`,
+			const { body: ghBody } = await got(`https://api.github.com/repos/${user}/${repo}/git/refs`, {
 				headers,
-				validateJSON: true,
 			});
 
-			for (const { object, ref } of ghBody) {
+			for (const { object, ref } of JSON.parse(ghBody)) {
 				refsData[ref.replace(/refs\/\w+\//, '')] = object.sha;
 			}
+
 			break;
 		case 'gitlab':
 			// nothing yet
