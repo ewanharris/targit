@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   test:
     name: Test on node ${{ matrix.node-version }} and ${{ matrix.os }}
-    runs-on: ${{ matrix.os}}
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         node-version: [10.x, 12.x, 14.x]
@@ -20,4 +20,6 @@ jobs:
     - run: npm install -g yarn
     - run: yarn
     - run: yarn test
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
